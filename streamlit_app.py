@@ -26,7 +26,7 @@ with col3:
 # Project description
 st.title("Generative Shoe Finder")
 
-st.write("Looking for a new pair of trainers is more challenging than running itself?  \nJust type what you want below, :green[Weaviate]'s generative search (RAG) will find the best for you")
+st.write("Looking for a new pair of trainers is more challenging than running itself?  \nJust type what you want below, :green[Weaviate]'s generative search (RAG) will find the best fit for you")
 
 
 # Input query as text input
