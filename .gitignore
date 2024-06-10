@@ -165,3 +165,4 @@ cython_debug/
 # local files
 workflow-tests.ipynb
 .DS_Store
+.streamlit/

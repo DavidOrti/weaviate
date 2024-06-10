@@ -1,6 +1,7 @@
 
 import os
 
+import streamlit as st
 import weaviate
 import weaviate.classes as wvc
 from dotenv import load_dotenv
@@ -8,9 +9,9 @@ from dotenv import load_dotenv
 
 def get_weaviate_client():
     client = weaviate.connect_to_wcs(
-        cluster_url=os.getenv("WCS_DEMO_URL"),
-        auth_credentials=weaviate.auth.AuthApiKey(os.getenv("WCS_DEMO_RO_KEY")),
-        headers={'X-OpenAI-Api-key': os.getenv("OPENAI_API_KEY")}
+        cluster_url=st.secrets["WCS_DEMO_URL"],
+        auth_credentials=weaviate.auth.AuthApiKey(st.secrets["WCS_DEMO_RO_KEY"]),
+        headers={'X-OpenAI-Api-key': st.secrets["OPENAI_API_KEY"]}
     )
     return client
 
