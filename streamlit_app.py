@@ -9,23 +9,11 @@ if 'horizontal' not in st.session_state:
     st.session_state.preset_input = False
 
 
-# Top Images
-weaviate_logo_path = "https://camo.githubusercontent.com/b49704df941860f82b07720d59f7d2b221053d1ce0acbbfaf2fddb7ae48564c7/68747470733a2f2f77656176696174652e696f2f696d672f736974652f77656176696174652d6c6f676f2d6c696768742e706e67"
-handshake_emoji_path = "https://em-content.zobj.net/source/apple/391/handshake_1f91d.png"
-running_shoe_emoji_path = "https://em-content.zobj.net/source/apple/391/running-shoe_1f45f.png"
-
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.image(weaviate_logo_path)
-with col2:
-    st.image(handshake_emoji_path)
-with col3:
-    st.image(running_shoe_emoji_path)
-
+# Hero Image
+st.image('utils/hero.png')
 
 # Project description
 st.title("Generative Shoe Finder")
-
 st.write("Looking for a new pair of trainers is more challenging than running itself?  \nJust type what you want below, :green[Weaviate]'s generative search (RAG) will find the best fit for you")
 
 
