@@ -104,6 +104,6 @@ if st.button("Find running shoes!"):
     st.markdown(f"You can find more info about the {shoe_name} in the [Doctors of Running review]({url}) –where all the reviews for this demo are respectfully sourced from :)")
 
 
-st.caption("Please note that the review selection is *very* limited, so results might be off for some queries with several requests")
+st.caption("Please note that the [review selection](https://github.com/DavidOrti/weaviate/blob/main/data/shoes.json) is *very* limited, so results might be off for some queries with several requests")
 
 st.caption(f"Demo created by [David Ortiz](https://github.com/DavidOrti/weaviate) with :green_heart: from Valencia")
