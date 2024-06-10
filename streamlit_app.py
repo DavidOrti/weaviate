@@ -105,3 +105,5 @@ if st.button("Find running shoes!"):
 
 
 st.caption("Please note that the review selection is *very* limited, so results might be off for some queries with several requests")
+
+st.caption(f"Demo created by [David Ortiz](https://github.com/DavidOrti/weaviate) with :green_heart: from Valencia")
