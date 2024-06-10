@@ -17,9 +17,7 @@ st.title("Generative Shoe Finder")
 st.write("Looking for a new pair of trainers is more challenging than running itself?  \nJust type what you want below, :green[Weaviate]'s generative search (RAG) will find the best fit for you")
 
 
-# Input query as text input
-# if st.session_state.disabled:
-#     user_query = st.text_input("What are you looking for? Who are you?")
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 if not st.session_state.preset_input:
     user_query = st.text_input(
@@ -91,6 +89,8 @@ if st.button("Find running shoes!"):
 
     st.markdown(f"You can find more info about the {shoe_name} in the [Doctors of Running review]({url}) –where all the reviews for this demo are respectfully sourced from :)")
 
+
+st.markdown("<br><br><br><br>", unsafe_allow_html=True)
 
 st.caption("Please note that the [review selection](https://github.com/DavidOrti/weaviate/blob/main/data/shoes.json) is *very* limited, so results might be off for some queries with several requests")
 
