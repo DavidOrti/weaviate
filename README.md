@@ -1,5 +1,7 @@
 # Generative Shoe Finder with Weaviate
 
+[![Weaviate](https://img.shields.io/static/v1?label=Built%20with&message=Weaviate&color=green&style=flat-square)](https://weaviate.io/) 
+
 ![Weaviate handshakes running shoes](utils/hero.png)
 
 ## Project Overview
