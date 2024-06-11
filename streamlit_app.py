@@ -1,8 +1,15 @@
 import streamlit as st
-from utils.funcs import get_query_from_toggles, generative_search
+from utils.funcs import (
+    get_query_from_toggles, 
+    generative_search,
+    load_info_json,
+    extract_xml_tag,
+    remove_xml_tag,
+    get_slug
+)
 
 
-# initialize session state attribute
+# initialize session state attributes
 if 'horizontal' not in st.session_state:
     st.session_state.horizontal = True
     st.session_state.disabled = True
@@ -76,15 +83,20 @@ if st.session_state.preset_input:
 
 
 if st.button("Find running shoes!"):
-    response_object, response_generated = generative_search(user_query)
-    slug = response_object.properties['slug']
-    shoe_name = response_object.properties['shoe_name']
-    explanation = response_generated
-    url = response_object.properties['review_url']
+
+    response_generated = generative_search(user_query)
+    
+    shoe_name = extract_xml_tag(response_generated, 'name')
+    response_generated = remove_xml_tag(response_generated, 'name')
+    
+    shoes_info = load_info_json()
+    url = shoes_info[shoe_name]['review_url']
+
+    slug = get_slug(shoe_name)
 
     if slug:
         st.markdown(f'## {shoe_name}')
-        st.markdown(explanation)
+        st.markdown(response_generated)
         st.image(f"data/images/{slug}.jpg")
 
     st.markdown(f"You can find more info about the {shoe_name} in the [Doctors of Running review]({url}) –where all the reviews for this demo are respectfully sourced from :)")
