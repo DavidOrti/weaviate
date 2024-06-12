@@ -1,10 +1,39 @@
-
-import os
+import json
+import re
+from pathlib import Path
 
 import streamlit as st
 import weaviate
 import weaviate.classes as wvc
-from dotenv import load_dotenv
+
+
+def load_info_json() -> dict:
+    """Loads main shoe info JSON file"""
+    DATA_DIR = Path('data')
+    INFO_FILE = 'shoes.json'
+    with open(DATA_DIR/INFO_FILE, 'r') as file:
+        return json.load(file)
+
+
+def extract_xml_tag(text: str, tag: str) -> str:
+    """Extracts a given XML-like tag from a text"""
+    pattern = rf'<{tag}>(.*?)</{tag}>'
+    print(pattern)
+    match = re.search(pattern, text)
+    if match:
+        return match.group(1)
+    else:
+        return None
+
+
+def remove_xml_tag(text: str, tag: str) -> str:
+    pattern = rf'<{tag}>(.*?)</{tag}>'
+    return re.sub(pattern, '', text).strip()
+
+
+def get_slug(title: str) -> str:
+    """Gets slug-like string from model name"""
+    return title.lower().replace(' ', '-')
 
 
 def get_weaviate_client():
@@ -29,18 +58,17 @@ def get_query_from_toggles(shoe_type: str, runner_profile: str, shoe_property: s
 def generative_search(user_query: str):
     try:
         client = get_weaviate_client()
-        reviews = client.collections.get('ShoeReviews')
+        reviews = client.collections.get('ShoeReviewsDev')
 
         response = reviews.generate.near_text(
             query=user_query,
-            limit=1,  # to keep query and text generation fast and simple
-            grouped_task='Recommend the running shoe for which a snippet of text is provided, focusing on what is mentioned there. Very briefly explain why, in just two or three bullet points. You can use markdown. Do not return the shoe name as a bullet point, title or similar.',
+            limit=10,
+            grouped_task='Recommend a single running shoe among the ones provided as context for the user input query, the one that best adapts to the user needs. Explain briefly and in simple terms, for non-running experts, in just two or three bullet points why you made that recommendation for the user input query. You can use markdown. Please start your response with the full_name of the selected model in the following format: <name>full_name</name>, then the summary of your recommendation.',
             grouped_properties=['shoe_name', 'text'],
             return_metadata=wvc.query.MetadataQuery(distance=True)
         )
-        #print(response.generated)
 
     finally:
         client.close()
 
-    return response.objects[0], response.generated
+    return response.generated
