@@ -58,7 +58,7 @@ def get_query_from_toggles(shoe_type: str, runner_profile: str, shoe_property: s
 def generative_search(user_query: str):
     try:
         client = get_weaviate_client()
-        reviews = client.collections.get('ShoeReviewsDev')
+        reviews = client.collections.get('ShoeReviews')
 
         response = reviews.generate.near_text(
             query=user_query,
